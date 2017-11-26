@@ -12,7 +12,7 @@
 	<!-- Embedded CSS, overwrites external CSS -->
     <style type="text/css">
 		html, body {
-			background-color: white;
+			background-color: Black;
 		}
     </style>
 
@@ -20,6 +20,8 @@
   
   <body>
 	<ul>
+	<h1 class="title">Upload New File</h1>
+	<!-- flash message -->
 	{% with messages = get_flashed_messages() %}
 		{% if messages %}
 			{% for message in messages %}
@@ -28,10 +30,9 @@
 		{% endif %}
 	{% endwith %}
 	</ul>
-	<h1>Upload new File</h1>
 	<!-- form for uploading file -->
     <form method=post enctype=multipart/form-data>
-		<p><input type=file name=file>
+		<input type=file name=file>
         <input type=submit value=Upload>
     </form>
   </body>
