@@ -19,6 +19,15 @@
   </head>
   
   <body>
+	<ul>
+	{% with messages = get_flashed_messages() %}
+		{% if messages %}
+			{% for message in messages %}
+				<li class="content3"> {{ message }} </li>
+			{% endfor %}
+		{% endif %}
+	{% endwith %}
+	</ul>
 	<h1>Upload new File</h1>
 	<!-- form for uploading file -->
     <form method=post enctype=multipart/form-data>

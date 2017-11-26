@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from werkzeug.utils import secure_filename
 import os
 
@@ -10,8 +10,9 @@ UPLOAD_FOLDER = 'C:/Users/Richard/Desktop/Images'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['SECRET_KEY'] = 'mysecret'
 
-#References
+#references
 #http://flask.pocoo.org/docs/0.12/patterns/fileuploads/
 
 #setting allowed files
@@ -22,16 +23,16 @@ def allowed_file(filename):
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	if request.method == 'POST':
-		# check if the post request has the file part
+		#flash message & redirect if user tries to upload a file outside of the ALLOWED_EXTENSIONS
 		if 'file' not in request.files:
-			flash('No file part')
+			flash('This type of file cannot be uploaded.')
 			return redirect(request.url)
 		file = request.files['file']
-		# if user does not select file, can
-		# submit an empty post without filename
+		#flash message & redirect if user clicks button without selecting a file to upload
 		if file.filename == '':
 			flash('No selected file')
 			return redirect(request.url)
+		#if the file meets the criteria - upload to the UPLOAD_FOLDER & render template Uploaded.html
 		if file and allowed_file(file.filename):
 			filename = secure_filename(file.filename)
 			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
