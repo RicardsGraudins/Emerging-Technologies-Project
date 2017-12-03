@@ -5,6 +5,15 @@ The module is taught to undergraduate students at [GMIT](http://www.gmit.ie/) in
 ## Project Guidelines:
 > In this project you will create a web application in Python to recognise digits in images. Users will be able to visit the web application through their browser, submit (or draw) an image containing a single digit, and the web application will respond with the digit contained in the image. You should use tensorflow and flask to do this. Note that accuracy of approximately 99% is considered excellent in recognising digits, so it is okay if your algorithm gets it wrong sometimes.
 
+## Project Overview:
+For this project I decided to go with the CNN (convolutional neural network) model. I decided to use this model because after doing some research and examining various models used for the MNIST data set at the following [link](https://rodrigob.github.io/are_we_there_yet/build/classification_datasets_results) I noticed that CNN came up quite a bit and thus decided to try it out. The model layout for this project ended up being  
+Input layer -> Convolutional layer 1 -> Convolutional layer 2 -> Fully connected layer -> Softmax layer  
+with an accuracy close to 99%. To implement the model I used the [TFLearn](http://tflearn.org/) library over [Keras](https://keras.io/) since it wasn't covered in the module and I thought it would be useful to know how to use a different high level API for Tensorflow.
+
+Initially I had planned to host the project on a cloud server simply by having the flask application run on the cloud server and make the webpages accessable remotely. However due to having an issue with restoring the model, the plan became infeasible because without being able to restore the model it means I have to train the model on the cloud server which is quite a resource-intensive task.
+
+If you're hosting the project locally using flask keep in mind that restoring the model does not work and as a result the model must train itself everytime a new image is uploaded which is **far** from ideal but must suffice for a simple work around for the time being, also keep in mind that the accuracy is lower when using flask since the training epoch is set to a much lower number than that of the one in the notebook in order to get feedback faster. A better work around for this situation would be training the model when the flask application starts up using something along the lines of `@app.before_first_request`.
+
 ## What is MNIST:
 The MNIST database (Modified National Institute of Standards and Technology database) is a large database of handwritten digits that is commonly used for training various image processing systems. The database is also widely used for training and testing in the field of machine learning. It was created by "re-mixing" the samples from NIST's original datasets.  
 
@@ -25,7 +34,7 @@ Download the repository and using the command console CD into the directory and 
 Alternatively you can can just run the entire notebook by clicking `Cell` followed by `Run All`. Remember to change the directory of the image you would like to test in step 5 and keep in mind that the training in step 4 can take a while depending on your hardware.
 
 **If you would like to run the project locally using *flask*, do the following:**  
-Download the repository and using the command console CD into the directory/Project and type `python runme.py` or `py runme.py` depending on your version of Python. The application will then be accessable in your browser by going to the address displayed in the console window.
+Download the repository and using the command console CD into the directory/Project and type `python runme.py` or `py runme.py` depending on your version of Python. The application will then be accessable in your browser by going to the address displayed in the console window. You should also change the `UPLOAD_FOLDER` variable to a folder that is on your machine before running.
 
 ### Prerequisites:
 When running the code locally the following prerequisites must be installed:  
