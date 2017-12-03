@@ -37,7 +37,7 @@ def index():
 		if file.filename == '':
 			flash('No Selected File')
 			return redirect(request.url)
-		#If the file meets the criteria - upload to the UPLOAD_FOLDER & render template Uploaded.html
+		#If the file meets the criteria - upload to the UPLOAD_FOLDER & run predict(filename) function
 		if file and allowed_file(file.filename):
 			filename = secure_filename(file.filename)
 			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -109,7 +109,7 @@ def predict(filename):
 	mnist = input_data.read_data_sets("MNIST_Data/", one_hot=True)
 	#Short training session
 	#Number of interations
-	epoch=500
+	epoch=1000
 	#Batch size
 	batch_size=50
 	#Keep probability
@@ -135,7 +135,7 @@ def predict(filename):
 	predicted_class = np.argmax(pred)
 	print("Predicted number: {}".format(predicted_class))
 	displaymessage = "The predicted number is: {}".format(predicted_class)
-	return render_template('Uploaded.html', displaymessage = displaymessage)
+	return render_template('Home.html', displaymessage = displaymessage)
 
 if __name__ == "__main__":
 	app.run(debug=True)

@@ -13,18 +13,8 @@
 	font-weight: normal;
 	font-size: 100%;
 	font-family:comic sans, comic sans ms, cursive, verdana, arial, sans-serif;
-	text-align:center;
+	text-align:left;
 	word-spacing:2pt;
-}
-
-.content2 {
-	color:#FFFFFF;
-	font-weight: normal;
-	font-size: 100%;
-	font-family:comic sans, comic sans ms, cursive, verdana, arial, sans-serif;
-	text-align:center;
-	word-spacing:2pt;
-	text-shadow:1px 1px 1px rgba(46,39,26,1);
 }
 
 .content3 {
@@ -45,4 +35,18 @@ input[type=file] {
 	text-align:center;
 	word-spacing:2pt;
 	margin-left: 2%;
+}
+
+.link {
+	color: #f0a118;
+}
+
+.link:visited {
+	color: #ffffff;
+} 
+
+.link:hover {
+	color: #ffffff;
+	font-weight: bold;
+	cursor: pointer;
 }

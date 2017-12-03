@@ -4,7 +4,7 @@
 
   <head>
     <meta charset="UTF-8">
-    <title>Placeholder Title</title>
+    <title>MNIST Reader</title>
 	
 	<!-- External CSS Page -->
 	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='myCSS.css')}}">
@@ -17,22 +17,68 @@
     </style>
   </head>
   
-  <body>
-	<ul>
-	<h1 class="title">Upload New File</h1>
-	<!-- flash message -->
-	{% with messages = get_flashed_messages() %}
-		{% if messages %}
-			{% for message in messages %}
-				<li class="content3"> {{ message }} </li>
-			{% endfor %}
-		{% endif %}
-	{% endwith %}
-	</ul>
-	<!-- form for uploading file -->
-    <form method=post enctype=multipart/form-data>
-		<input type=file name=file>
-        <input type=submit value=Upload>
-    </form>
+  <body>	
+	<div id="container" style="width:100%;">                                   
+	  <div id="left" style="float:left; width:50%;">
+		<ul>
+		<h1 class="title">Upload New File</h1>
+		<!-- flash message -->
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				{% for message in messages %}
+					<li class="content3"> {{ message }} </li>
+				{% endfor %}
+			{% endif %}
+		{% endwith %}
+		</ul>
+		<!-- form for uploading file -->
+		<form method=post enctype=multipart/form-data>
+			<input type=file name=file id="imgInp">
+			<input type=submit value=Upload>
+		</form>
+		<img id="imgUp" src="#" alt="your image" />
+		<p class="title" id="message">{{ displaymessage }}</p>
+	  </div>                     
+	  <div id="right" style="float:right; width:50%;">
+		<p class="content">Note: Please wait after uploading your image.<br/>
+		Note: Images submitted must be greyscale with a black background.
+		<br/>
+		<br/>
+		<p class="content">About me:</br>
+		My name is Ricards Graudins and I am a fourth year student at GMIT.<br/>
+		This project was completed for the module Emerging Technologies<br/>
+		for the course Bsc.(Hons) in Software Developement.</p>
+		<p class="content">Please view<a class="link" onclick="github()"> https://github.com/RicardsGraudins/Emerging-Technologies-Project</a> for additional information.</p>
+	  </div>                   
+	</div>       
   </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script type="text/javascript">
+	github = function(){
+		var win = window.open("https://github.com/RicardsGraudins/Emerging-Technologies-Project", "_blank");
+		if (win) {
+			//browser has allowed it to be opened
+			win.focus();
+		} else {
+			//browser has blocked it
+			alert('Please allow popups for this website');
+		}
+	}//github
+	
+	function readURL(input) {
+	  if (input.files && input.files[0]) {
+		var reader = new FileReader();
+
+		reader.onload = function(e) {
+		  $('#imgUp').attr('src', e.target.result);
+		}
+
+		reader.readAsDataURL(input.files[0]);
+	  }
+	}//readURL
+
+	$("#imgInp").change(function() {
+	  readURL(this);
+	});
+  </script>
 </html>
