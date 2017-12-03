@@ -36,6 +36,9 @@ Alternatively you can can just run the entire notebook by clicking `Cell` follow
 **If you would like to run the project locally using *flask*, do the following:**  
 Download the repository and using the command console CD into the directory/Project and type `python runme.py` or `py runme.py` depending on your version of Python. The application will then be accessable in your browser by going to the address displayed in the console window. You should also change the `UPLOAD_FOLDER` variable to a folder that is on your machine before running.
 
+The following image displays the index page of the project hosted locally using flask.
+![Image of the UI](https://github.com/RicardsGraudins/Emerging-Technologies-Project/blob/master/Project/Images/Example.PNG)
+
 ### Prerequisites:
 When running the code locally the following prerequisites must be installed:  
 * Python.  
