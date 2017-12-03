@@ -44,10 +44,6 @@ def index():
 			return predict(filename)
 	return render_template('Home.html')
 	
-@app.route('/FAQ')
-def faq():
-	return render_template('FAQ.html')
-	
 #Restoring model, view jupyter notebook for further documentation, training & testing etc.
 #Ref https://stackoverflow.com/questions/43887425/how-to-import-a-model-in-tensorflow
 def predict(filename):
@@ -104,9 +100,26 @@ def predict(filename):
 	tf.global_variables_initializer().run()
 
 	#Restoring model - not working correctly..
-	model_path = "Model/mymodel"
-	saver = tf.train.import_meta_graph(model_path+'.meta')
-	saver.restore(sess, model_path)
+	#model_path = "Model/mymodel"
+	#saver = tf.train.import_meta_graph(model_path+'.meta')
+	#saver.restore(sess, model_path)
+	
+	#Since the model doesn't restore correctly we train it, further documentation in readme
+	#Get the MNIST data
+	mnist = input_data.read_data_sets("MNIST_Data/", one_hot=True)
+	#Short training session
+	#Number of interations
+	epoch=500
+	#Batch size
+	batch_size=50
+	#Keep probability
+	keep_prob = tf.placeholder(tf.float32)
+	for i in range(epoch):
+		batch = mnist.train.next_batch(batch_size)
+		if i % 100 == 0:
+			train_accuracy = accuracy.eval(feed_dict={
+				x: batch[0], y_: batch[1], keep_prob: 1.0})
+		train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.5})
 
 	img = Image.open(UPLOAD_FOLDER + "/" + filename)
 	#Resize the image 28x28
